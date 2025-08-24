@@ -94,7 +94,7 @@ describe('nx-go', () => {
     it('should build the application', async () => {
       const result = await runNxCommandAsync(`build ${appName}`);
       expect(result.stdout).toContain(
-        `Executing command: go build -o dist/${appName}${ext} ${appName}/main.go`
+        `Executing command: go build -o dist/${appName}${ext} ./main.go`
       );
     });
 
@@ -104,7 +104,7 @@ describe('nx-go', () => {
         cwd,
       });
       expect(result.stdout).toContain(
-        `Executing command: go build -o ../dist/${appName}${ext} ../${appName}/main.go`
+        `Executing command: go build -o dist/${appName}${ext} ./main.go`
       );
     });
   });
@@ -151,7 +151,7 @@ describe('nx-go', () => {
 
   it('should serve the application', async () => {
     const result = await runNxCommandAsync(`serve ${appName}`);
-    expect(result.stdout).toContain(`Executing command: go run main.go`);
+    expect(result.stdout).toContain(`Executing command: go run ./main.go`);
   });
 
   it('should test the application', async () => {
