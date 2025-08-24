@@ -29,7 +29,6 @@ export const executeCommand = async (
   parameters: string[] = [],
   options: RunGoOptions = {}
 ): Promise<{ success: boolean }> => {
-  console.log(options);
   try {
     const { executable = 'go', cwd, env = {} } = options;
 
@@ -43,9 +42,6 @@ export const executeCommand = async (
     return { success: true };
   } catch (error) {
     logger.error(error);
-    for (const key in options) {
-      logger.error(`${key}:\t${options[key]}`);
-    }
     return { success: false };
   }
 };
