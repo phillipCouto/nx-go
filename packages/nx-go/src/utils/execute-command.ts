@@ -1,5 +1,6 @@
 import { ExecutorContext, logger } from '@nx/devkit';
 import { execSync } from 'child_process';
+import { join } from 'path';
 
 export type RunGoOptions = {
   executable?: string;
@@ -15,6 +16,9 @@ export type RunGoOptions = {
 export const extractProjectRoot = (context: ExecutorContext): string =>
   context.projectsConfigurations.projects[context.projectName].root;
 
+export const extractProjectRootFull = (context: ExecutorContext): string =>
+  join(context.root, extractProjectRoot(context));
+
 /**
  * Execute and log a command, then return the result to executor.
  *
@@ -25,6 +29,7 @@ export const executeCommand = async (
   parameters: string[] = [],
   options: RunGoOptions = {}
 ): Promise<{ success: boolean }> => {
+  console.log(options);
   try {
     const { executable = 'go', cwd, env = {} } = options;
 
@@ -38,6 +43,9 @@ export const executeCommand = async (
     return { success: true };
   } catch (error) {
     logger.error(error);
+    for (const key in options) {
+      logger.error(`${key}:\t${options[key]}`);
+    }
     return { success: false };
   }
 };

@@ -3,6 +3,7 @@ import {
   buildStringFlagIfValid,
   executeCommand,
   extractProjectRoot,
+  extractProjectRootFull,
 } from '../../utils';
 import { BuildExecutorSchema } from './schema';
 
@@ -17,7 +18,7 @@ export default async function runExecutor(
   context: ExecutorContext
 ) {
   return executeCommand(buildParams(options, context), {
-    cwd: context.cwd,
+    cwd: extractProjectRootFull(context),
     env: options.env,
     executable: buildExecutable(options.compiler),
   });
