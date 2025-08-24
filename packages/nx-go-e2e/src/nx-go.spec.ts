@@ -99,8 +99,9 @@ describe('nx-go', () => {
     });
 
     it('should build the application from a different folder', async () => {
+      const cwd = join(projectDirectory, libName);
       const result = await runNxCommandAsync(`build ${appName}`, {
-        cwd: libName,
+        cwd,
       });
       expect(result.stdout).toContain(
         `Executing command: go build -o ../dist/${appName}${ext} ../${appName}/main.go`
@@ -115,8 +116,9 @@ describe('nx-go', () => {
     });
 
     it('should execute the linter from a different folder', async () => {
+      const cwd = join(projectDirectory, appName);
       const result = await runNxCommandAsync(`lint ${appName}`, {
-        cwd: libName,
+        cwd,
       });
       expect(result.stdout).toContain(`Executing command: go fmt ./...`);
     });
