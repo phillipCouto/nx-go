@@ -41,7 +41,7 @@ module.exports = [
   },
   ...compat.config({ extends: ['plugin:@nx/typescript'] }).map((config) => ({
     ...config,
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'],
     rules: {
       ...config.rules,
       '@stylistic/no-extra-semi': 'error',
@@ -49,7 +49,7 @@ module.exports = [
   })),
   ...compat.config({ extends: ['plugin:@nx/javascript'] }).map((config) => ({
     ...config,
-    files: ['**/*.js', '**/*.jsx'],
+    files: ['**/*.js', '**/*.jsx', '**/*.cjs', '**/*.mjs'],
     rules: {
       ...config.rules,
       '@stylistic/no-extra-semi': 'error',
