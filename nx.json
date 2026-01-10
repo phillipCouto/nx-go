@@ -58,6 +58,5 @@
       },
       "include": ["packages/nx-go-e2e/**/*"]
     }
-  ],
-  "useLegacyCache": true
+  ]
 }
