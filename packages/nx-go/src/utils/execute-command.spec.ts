@@ -25,6 +25,11 @@ describe('Execute command', () => {
             projects: { proj: { root: '/root/project' } },
             version: 1,
           },
+          nxJsonConfiguration: {},
+          projectGraph: {
+            nodes: {},
+            dependencies: {},
+          },
         })
       ).toBe('/root/project');
     });

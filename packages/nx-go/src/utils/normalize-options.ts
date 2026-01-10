@@ -1,8 +1,5 @@
 import { names, NX_VERSION, ProjectType, Tree } from '@nx/devkit';
-import {
-  determineProjectNameAndRootOptions,
-  ProjectNameAndRootFormat,
-} from '@nx/devkit/src/generators/project-name-and-root-utils';
+import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 
 export interface GeneratorSchema {
   /**
@@ -13,7 +10,6 @@ export interface GeneratorSchema {
    * TODO major: this property is provided by default in Nx 20
    */
   directory?: string;
-  projectNameAndRootFormat?: ProjectNameAndRootFormat;
   tags?: string;
   skipFormat?: boolean;
 }
@@ -29,19 +25,18 @@ export interface GeneratorNormalizedSchema extends GeneratorSchema {
 export const normalizeOptions = async (
   tree: Tree,
   options: GeneratorSchema,
-  projectType: ProjectType,
-  generator: string
+  projectType: ProjectType
 ): Promise<GeneratorNormalizedSchema> => {
   ensureProjectDirectory(options);
 
-  const { projectName, projectRoot, projectNameAndRootFormat } =
-    await determineProjectNameAndRootOptions(tree, {
+  const { projectName, projectRoot } = await determineProjectNameAndRootOptions(
+    tree,
+    {
       name: options.name,
       projectType: projectType,
       directory: options.directory,
-      projectNameAndRootFormat: options.projectNameAndRootFormat,
-      callingGenerator: generator,
-    });
+    }
+  );
 
   const parsedTags = options.tags
     ? options.tags.split(',').map((s) => s.trim())
@@ -51,7 +46,6 @@ export const normalizeOptions = async (
     ...options,
     name: names(options.name).fileName,
     moduleName: names(projectName).propertyName.toLowerCase(),
-    projectNameAndRootFormat,
     projectName,
     projectRoot,
     projectType,

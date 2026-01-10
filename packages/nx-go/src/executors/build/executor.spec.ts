@@ -21,6 +21,15 @@ const context: ExecutorContext = {
   cwd: 'current-dir',
   root: '',
   isVerbose: false,
+  projectsConfigurations: {
+    version: 2,
+    projects: {},
+  },
+  nxJsonConfiguration: {},
+  projectGraph: {
+    nodes: {},
+    dependencies: {},
+  },
 };
 
 describe('Build Executor', () => {
