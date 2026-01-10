@@ -1,6 +1,6 @@
 {
   "name": "@nx-go/nx-go",
-  "version": "3.3.1",
+  "version": "22.0.0",
   "description": "Nx plugin to use Go in a Nx Workspace",
   "license": "MIT",
   "homepage": "https://github.com/nx-go/nx-go",
@@ -18,7 +18,7 @@
     "url": "https://github.com/nx-go/nx-go/issues"
   },
   "dependencies": {
-    "@nx/devkit": ">= 17 < 22",
+    "@nx/devkit": ">= 22 < 23",
     "tslib": "^2.3.0"
   },
   "type": "commonjs",

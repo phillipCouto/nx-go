@@ -1,10 +1,10 @@
-import type { CreateNodes } from '@nx/devkit';
+import type { CreateNodesV2, CreateNodesResult } from '@nx/devkit';
 import { dirname } from 'path';
 import { GO_MOD_FILE } from '../constants';
 
-export const createNodes: CreateNodes = [
+export const createNodes: CreateNodesV2 = [
   `**/${GO_MOD_FILE}`,
-  (file) => {
+  (files) => files.map(file => {
     const root = dirname(file);
     const parts = root.split(/[/\\]/g);
     const name = parts[parts.length - 1].toLowerCase();
@@ -12,10 +12,10 @@ export const createNodes: CreateNodes = [
     // We cannot create nodes if go.mod is in the workspace root folder
     // in this case we let Nx use project.json files (by default)
     if (root === '.') {
-      return {};
+      return [file, {}];
     }
 
-    return {
+    return [file, {
       projects: {
         [name]: {
           name,
@@ -24,6 +24,6 @@ export const createNodes: CreateNodes = [
           targets: {},
         },
       },
-    };
-  },
+    }] as [string, CreateNodesResult];
+  }),
 ];

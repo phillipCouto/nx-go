@@ -7,11 +7,11 @@ describe('Create nodes', () => {
 
   it('should process a go.mod file inside an underlying project', () => {
     const result = createNodes[1](
-      '/tmp/my-project/libs/api/go.mod',
+      ['/tmp/my-project/libs/api/go.mod'],
       null,
       null
     );
-    expect(result).toEqual({
+    expect(result).toEqual([['/tmp/my-project/libs/api/go.mod', {
       projects: {
         api: {
           name: 'api',
@@ -19,11 +19,11 @@ describe('Create nodes', () => {
           targets: {},
         },
       },
-    });
+    }]]);
   });
 
   it('should process a go.mod file at the root workspace', () => {
-    const result = createNodes[1]('./go.mod', null, null);
-    expect(result).toEqual({});
+    const result = createNodes[1](['./go.mod'], null, null);
+    expect(result).toEqual([['./go.mod', {}]]);
   });
 });
